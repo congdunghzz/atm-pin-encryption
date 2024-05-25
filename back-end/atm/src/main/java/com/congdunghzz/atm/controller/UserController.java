@@ -36,9 +36,14 @@ public class UserController {
                                                    @RequestBody String encodedPin){
         return ResponseEntity.status(HttpStatus.OK).body(userService.setEncodedPinById(id, encodedPin));
     }
+
+    
     @GetMapping("/{id}/pin")
     ResponseEntity<String> getEncodedPin(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getEncodedPinById(id));
     }
+
+
+
 
 }

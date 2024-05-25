@@ -1,0 +1,28 @@
+.login{
+    min-height: 100vh;
+    background: url('https://wallpapers.com/images/hd/beach-deck-full-screen-desktop-kl1442b0apvtsd81.jpg')no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.login-cart{
+        color:aliceblue;
+        min-width: 400px;
+        padding: 2rem;
+        background: transparent;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border: 2px solid rgba(255,255,255,0.5);
+        backdrop-filter: blur(20px);
+    
+}
+.login-cart input {
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+}
+.login-cart input::placeholder{
+    color: #fff;
+}
+/* https://wallpapers.com/images/hd/beach-deck-full-screen-desktop-kl1442b0apvtsd81.jpg */
