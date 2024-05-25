@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: atm
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/atm
+    username: root
+    password:
+
