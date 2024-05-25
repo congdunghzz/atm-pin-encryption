@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import * as authenticationService from "../service/authenticationService";
 import "./Encrypt.css";
 import CryptoJS from "crypto-js";
 
@@ -9,6 +10,8 @@ const Encrypt = () => {
   const [pan, setPan] = useState('');
   const [key, setKey] = useState('');
   const [encryptedPin, setEncryptedPin] = useState('');
+
+  const userId = localStorage.getItem('userId');
 
   //Hàm tạo ra một chuỗi ký tự ngẫu nhiên
   const getRandomHex = (length) => {
@@ -50,7 +53,7 @@ const Encrypt = () => {
         const randomPadding = getRandomHex(8 - block.length);
         block = block + randomPadding;
       }
-      // đệm mã pin với giá trị ngẫu nhiên (đã thực hiện ở trên)
+      // đệm mã pin với giá trị 0 (đã thực hiện ở trên)
       const paddedPin = block;
       // Lấy 12 chữ số cuối của PAN   
       const panLast12 = pan.slice(-12);
@@ -62,8 +65,13 @@ const Encrypt = () => {
       const encryptedBlock = encryptBlock(xorResult, key);
       result += encryptedBlock;
     }
-
     setEncryptedPin(result);
+    const encodedPin = await authenticationService.getEncodedPin(userId);
+    if (encodedPin?.data === result) {
+      navigate("/main")
+    }else{
+      alert("Khóa hoặc mã Pin không chính xác")
+    }
   };
 
   useEffect(() => {
@@ -88,7 +96,7 @@ const Encrypt = () => {
               <label for="key">Khóa DES (16 ký tự):</label>
               <input type="text" value={key} onChange={(e) => setKey(e.target.value)} id="key" name="key" />
             </div>
-            <button onClick={handleEncrypt}>Mã hóa và Lưu trữ</button>
+            <button onClick={handleEncrypt}>Xác nhận</button>
             {encryptedPin && (
               <div className="mt-5">
                 <h2>Mã PIN đã mã hóa:</h2>

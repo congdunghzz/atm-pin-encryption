@@ -23,6 +23,7 @@ public class UserController {
     }
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login (@RequestBody LoginRequest request){
+        System.out.println(request);
         return ResponseEntity.status(HttpStatus.OK).body(userService.login(request));
     }
 
@@ -37,13 +38,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.setEncodedPinById(id, encodedPin));
     }
 
-    
+
     @GetMapping("/{id}/pin")
     ResponseEntity<String> getEncodedPin(@PathVariable Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getEncodedPinById(id));
     }
-
-
-
 
 }

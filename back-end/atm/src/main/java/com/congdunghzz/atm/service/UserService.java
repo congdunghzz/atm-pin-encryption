@@ -34,10 +34,12 @@ public class UserService {
     public UserResponse login(LoginRequest request){
         Optional<User> user = userRepository.findByAccountNumber(request.accountNumber());
         if (user.isEmpty()) throw new NotFoundException("User with username: " + request.accountNumber() + " is not found");
-        if (user.get().getPassword().equals(passwordEncoder.encode(request.password()))){
+        if (passwordEncoder.matches(request.password(),user.get().getPassword())){
             return UserMapper.ConvertToUserResponse(user.get());
+        }else {
+            throw new NotFoundException("Wrong password");
         }
-        return null;
+
     }
 
     public UserResponse register(User user){
@@ -47,6 +49,9 @@ public class UserService {
                 .accountNumber(user.getAccountNumber())
                 .password(passwordEncoder.encode(user.getPassword()))
                 .build();
+        if(user.getEncodedPin() != null){
+            createdUser.setEncodedPin(user.getEncodedPin());
+        }
         return UserMapper.ConvertToUserResponse(userRepository.save(createdUser));
     }
 

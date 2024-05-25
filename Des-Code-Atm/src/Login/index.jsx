@@ -24,7 +24,7 @@ function Login() {
         if (res.status === 200) {
             console.log("login successfully");
             navigate("/")
-        } else if (res?.status === 403) {
+        } else if (res?.status === 403 || res?.status === 404) {
             setPassword('');
             alert("accountNumber or password is incorrect");
         } else {

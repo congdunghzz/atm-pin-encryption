@@ -6,7 +6,7 @@ export async function login(loginRequest) {
     
     try{
         const response = await axios.post(`${ApiUrl}/user/login`, {
-            userEmail: loginRequest.email,
+            accountNumber: loginRequest.accountNumber,
             password: loginRequest.password
         },
             {
@@ -16,9 +16,10 @@ export async function login(loginRequest) {
                 }
             })
         if (response?.status === 200) {
-            localStorage.setItem('authToken', response.data.token);
-            localStorage.setItem('role', response.data.role);
+            localStorage.setItem('accountNumber', response.data.accountNumber);
+            localStorage.setItem('userId', response.data.id);
         }
+        console.log(response);
         return response;
     } catch(e){
         return e.response;
@@ -31,8 +32,7 @@ export async function register(request) {
             headers: {'Content-Type': 'application/json'}
         })
         if (response?.status === 200) {
-            localStorage.setItem('authToken', response.data.token);
-            localStorage.setItem('role', response.data.role);
+
         }
         return response;
 
@@ -40,4 +40,18 @@ export async function register(request) {
         return e.response;
     }
 }
+
+export async function getEncodedPin(userId) {
+    try{
+        const response = await axios.get(`${ApiUrl}/user/${userId}/pin`, {
+            headers: {'Content-Type': 'application/json'}
+        })
+        return response;
+
+    }catch(e){
+        return e.response;
+    }
+}
+
+
 

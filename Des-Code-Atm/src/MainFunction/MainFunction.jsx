@@ -8,9 +8,6 @@ const MainFunction = () => {
 
   useEffect(() => {
     const accountNumber = localStorage.getItem('accountNumber');
-  })
-  useEffect(() => {
-    const accountNumber = localStorage.getItem('accountNumber');
     if(!accountNumber){
       navigate("/login")
     }
